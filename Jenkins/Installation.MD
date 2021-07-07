@@ -11,6 +11,7 @@ Jenkins is a self-contained Java-based program, ready to run out-of-the-box, wit
 ## Install Java
 We will be using open java for our demo, Get latest version from http://openjdk.java.net/install/
 ```sh
+sudo su -
 yum install java-1.8*
 #yum -y install java-1.8.0-openjdk
 ```
@@ -20,7 +21,7 @@ Lets install java and set the java home
 ```sh
 java -version
 find /usr/lib/jvm/java-1.8* | head -n 3
-#JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.191.b12-1.el7_6.x86_64
+#JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.282.b08-1.amzn2.0.1.x86_64
 export JAVA_HOME
 PATH=$PATH:$JAVA_HOME
 # To set it permanently update your .bash_profile
@@ -48,7 +49,7 @@ yum -y install jenkins
 ```sh
 # Start jenkins service
 systemctl start jenkins
-
+service jenkins status
 # Setup Jenkins to start at boot,
 systemctl enable jenkins
 ```
@@ -62,6 +63,7 @@ http://YOUR-SERVER-PUBLIC-IP:8080
 - The default Username is `admin`
 - Grab the default password 
   - Password Location:`/var/lib/jenkins/secrets/initialAdminPassword`
+  - systemctl restart jenkins
 - `Skip` Plugin Installation; _We can do it later_
 - Change admin password
   - `Admin` > `Configure` > `Password`
@@ -69,10 +71,15 @@ http://YOUR-SERVER-PUBLIC-IP:8080
   - `Manage Jenkins` > `Global Tool Configuration` > `JDK`  
 - Create another admin user id
 
+#### Workspace Jenkins
+```sh
+  cd /var/lib/jenkins/workspace
+```
+
 ### Test Jenkins Jobs
-1. Create “new item”
-1. Enter an item name – `My-First-Project`
-   - Chose `Freestyle` project
+1. Create new item
+1. Enter an item name  `My-First-Project`
+   - Chose `Freestyle` project  
 1. Under Build section
 	Execute shell : echo "Welcome to Jenkins Demo"
 1. Save your job 

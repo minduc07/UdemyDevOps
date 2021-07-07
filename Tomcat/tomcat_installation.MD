@@ -18,8 +18,8 @@ give executing permissions to startup.sh and shutdown.sh which are under bin.
 
 create link files for tomcat startup.sh and shutdown.sh 
 ```sh
-  ln -s /opt/apache-tomcat-8.5.35/bin/startup.sh /usr/local/bin/tomcatup
-  ln -s /opt/apache-tomcat-8.5.35/bin/shutdown.sh /usr/local/bin/tomcatdown
+  ls -s /opt/tomcat/bin/startup.sh /usr/local/bin/tomcatup
+  ls -s /opt/tomcat/bin/shutdown.sh /usr/local/bin/tomcatdown
   tomcatup
 ```
 #### check point :
@@ -49,16 +49,23 @@ After that restart tomcat services to effect these changes
 tomcatdown
 tomcatup
 ```
+
+Update users information in the /opt/tomcat/webapps/manager/META-INF/context.xml file
+goto tomcat home directory and Add below users to conf/tomcat-user.xml file
+```sh
+  <!-- Valve className="org.apache.catalina.valves.RemoteAddrValve" allow="..." /> -->
+```
+
 Update users information in the tomcat-users.xml file
 goto tomcat home directory and Add below users to conf/tomcat-user.xml file
 ```sh
-	<role rolename="manager-gui"/>
-	<role rolename="manager-script"/>
-	<role rolename="manager-jmx"/>
-	<role rolename="manager-status"/>
-	<user username="admin" password="admin" roles="manager-gui, manager-script, manager-jmx, manager-status"/>
-	<user username="deployer" password="deployer" roles="manager-script"/>
-	<user username="tomcat" password="s3cret" roles="manager-gui"/>
+  <role rolename="manager-gui"/>
+  <role rolename="manager-script"/>
+  <role rolename="manager-jmx"/>
+  <role rolename="manager-status"/>
+  <user username="admin" password="admin" roles="manager-gui, manager-script, manager-jmx, manager-status"/>
+  <user username="deployer" password="deployer" roles="manager-script"/>
+  <user username="tomcat" password="s3cret" roles="manager-gui"/>
 ```
 Restart serivce and try to login to tomcat application from the browser. This time it should be Successful
 
